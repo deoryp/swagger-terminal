@@ -2,7 +2,7 @@ readline  = require 'readline'
 http      = require 'http'
 url       = require 'url'
 
-String::trim = -> @replace /^\s+|\s+$/g, ""
+String::trim = () -> @replace /^\s+|\s+$/g, ""
 
 String::jsonFormat = ->
   this.replace /\.\{format\}/g, ".json"
@@ -43,22 +43,6 @@ fetchSwagger = (options, callback) ->
         fetchUrl api, (json) ->
           api.swagger = new SwaggerDoc(json)
 
-    ###
-    http.get options, (res) ->
-      json = ''
-      res.on 'data', (c) -> json += c
-      res.on 'end', () ->
-        swagger = new SwaggerDoc(json)
-        for api in swagger.apis
-          json = ''
-          http.get api, (res) ->
-            res.on 'data', (c) -> json += c
-            res.on 'end', () ->
-              subdoc = new SwaggerDoc(json)
-              console.log(subdoc)
-    
-    ###
-
 class SwaggerTerminal
   constructor: (@prompt, @swaggerUrl, @callback) ->
     options = url.parse(@swaggerUrl)
@@ -89,8 +73,40 @@ class SwaggerTerminal
   print: () ->
     console.log(@swaggerUrl)
 
-swag = new SwaggerTerminal 'connect:', 'http://petstore.swagger.wordnik.com/api/api-docs.json', () ->
-  console.log('Have a great day!')
-  process.exit(0)
 
+introCompleter = (line, callback) ->
+  line = line.trim()
+  completions = 'connect exit'.split(' ')
+  hits = completions.filter((c) -> return c.indexOf(line) == 0)
+  hit = completions if hits.length is 0
+  callback(null, [hits, line], line)
+
+rl = readline.createInterface
+  input: process.stdin
+  output: process.stdout
+  completer: introCompleter
+
+rl.setPrompt('> ')
+rl.prompt()
+
+rl.on 'line', (line) ->
+  line = line.trim()
+  command = line.split(' ')
+  switch command[0]
+    when 'connect'
+      rl.pause()
+      swag = new SwaggerTerminal '>>', command[1], () ->
+        rl.resume()
+    when 'exit' then rl.close()
+    else console.log("unknown command: #{command}.")
+  @prompt()
+
+  # swag = new SwaggerTerminal 'connect:', '
+# http://petstore.swagger.wordnik.com/api/api-docs.json
+#', () ->
+
+###
+connect = (url) ->
+  swag = new SwaggerTerminal prompt, url, callback
+###
 
