@@ -13,7 +13,7 @@ Downloading http://petstore.swagger.wordnik.com/api/api-docs.json.
 /pet
 /store
 
-> use pet
+> use /pet
 
 GET /pet.json/{petId}       -  Find pet by ID
 POST /pet.json              -  Add a new pet to the store
@@ -22,14 +22,38 @@ GET /pet.json/findByStatus  - Finds Pets by status
 
 > GET /pet.json/123
 
+GETTING http://petstore.swagger.wordnik.com/api/pet.json/123
 
+Response Body: 
+
+{
+  <json blob>
+}
+
+Response Code: 200
 
 ```
 
 ### Commands:
 
 - show
-    - url
+    - url, default true
     - response
-        - code
-        - headers
+        - body
+        - code, default true
+        - headers, default false
+    - curl, default false
+
+
+Example, 
+
+```
+> show response header
+response header = false
+> show response header true
+response body = true
+```
+
+
+
+
