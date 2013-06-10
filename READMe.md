@@ -25,7 +25,6 @@ GET /pet.json/findByStatus  - Finds Pets by status
 GETTING http://petstore.swagger.wordnik.com/api/pet.json/123
 
 Response Body: 
-
 {
   "id": 123,
   "category": {
@@ -47,14 +46,19 @@ Response Body:
 
 Response Code: 200
 
+> curl
+
+curl -X GET http://petstore.swagger.wordnik.com/api/pet.json/123
+
 > describe POST /pet.json
 
-Url: GET http://petstore.swagger.wordnik.com/api/pet.json/123
+Description: Returns a pet based on ID
+
+Url: GET http://petstore.swagger.wordnik.com/api/pet.json
 
 Url Parameters:
 
 Body Parameters:
-
 {
   "tags": [
     {
