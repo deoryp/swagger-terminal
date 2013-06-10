@@ -83,7 +83,10 @@ Body Parameters:
 
 ### Commands:
 
-- show, set
+- use <BASE URL>
+- done
+- using, use: show the current context.
+- show, set: Property settings.
     - url, default true
     - response
         - body
@@ -91,9 +94,11 @@ Body Parameters:
         - headers, default false
     - curl, default false
     - content type, default application/json
-- curl, give the curl command line for the last command
-
-
+- curl: give the curl command line for the last command
+- describe, info about resources based on current context
+    - <METHOD> <URL>
+    - <BASE URL> 
+    
 Example, 
 
 ```
