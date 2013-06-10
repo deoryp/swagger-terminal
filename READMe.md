@@ -27,22 +27,67 @@ GETTING http://petstore.swagger.wordnik.com/api/pet.json/123
 Response Body: 
 
 {
-  <json blob>
+  "id": 123,
+  "category": {
+    "id": 123,
+    "name": "dog"
+  },
+  "name": "tonka",
+  "photoUrls": [
+    ""
+  ],
+  "tags": [
+    {
+      "id": 123,
+      "name": "test"
+    }
+  ],
+  "status": "sold"
 }
 
 Response Code: 200
+
+> describe POST /pet.json
+
+Url: GET http://petstore.swagger.wordnik.com/api/pet.json/123
+
+Url Parameters:
+
+Body Parameters:
+
+{
+  "tags": [
+    {
+      "id": "long",
+      "name": "string"
+    }
+  ],
+  "id": "long",
+  "category": {
+    "id": "long",
+    "name": "string"
+  },
+  "status": "string",
+  "name": "string",
+  "photoUrls": [
+    "string"
+  ]
+}
+
 
 ```
 
 ### Commands:
 
-- show
+- show, set
     - url, default true
     - response
         - body
         - code, default true
         - headers, default false
     - curl, default false
+    - content type, default application/json
+- curl, give the curl command line for the last command
 
 
 Example, 
@@ -50,7 +95,7 @@ Example,
 ```
 > show response header
 response header = false
-> show response header true
+> set response header true
 response body = true
 ```
 
