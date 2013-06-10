@@ -94,6 +94,7 @@ Body Parameters:
         - code, default true
         - headers, default false
     - curl, default false
+    - .{format}, default json
     - content type, default application/json
 - curl: give the curl command line for the last command
 - describe, info about resources based on current context
