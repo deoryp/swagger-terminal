@@ -4,7 +4,7 @@
 ## Usage
 
 ```
-swag http://petstore.swagger.wordnik.com/api/api-docs.json
+swagger http://petstore.swagger.wordnik.com/api/api-docs.json
 
 Downloading http://petstore.swagger.wordnik.com/api/api-docs.json.
 [-------------------------------------------------------] 100%
