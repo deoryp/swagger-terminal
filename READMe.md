@@ -1,7 +1,10 @@
 # Swagger Terminal
 
+Documentation of intended usage. Future plans. 
 
 ## Usage
+
+### swagger
 
 ```
 swagger http://petstore.swagger.wordnik.com/api/api-docs.json
@@ -12,20 +15,27 @@ Downloading http://petstore.swagger.wordnik.com/api/api-docs.json.
   /user
   /pet
   /store
+```
 
+###use, using
+
+```
 > use /pet
 
-GET /pet.json/{petId}       -  Find pet by ID
-POST /pet.json              -  Add a new pet to the store
-PUT /pet.json               - Update an existing pet
-GET /pet.json/findByStatus  - Finds Pets by status
+GET  /pet.json/{petId}       -  Find pet by ID
+POST /pet.json               -  Add a new pet to the store
+PUT  /pet.json               - Update an existing pet
+GET  /pet.json/findByStatus  - Finds Pets by status
 
 > using 
 
   /user
 * /pet
   /store
+```
+###GET
 
+```
 > GET /pet.json/123
 
 GETTING http://petstore.swagger.wordnik.com/api/pet.json/123
@@ -49,11 +59,19 @@ Response Body:
   "status": "sold"
 }
 Response Code: 200
+```
 
+###curl
+
+```
 > curl
 
 curl -X GET http://petstore.swagger.wordnik.com/api/pet.json/123
+```
 
+###describe
+
+```
 > describe POST /pet.json
 
 Description: Returns a pet based on ID
@@ -78,9 +96,93 @@ Body Parameters:
     "string"
   ]
 }
-
->
 ```
+
+###POST
+
+
+```
+> POST /pet.json
+```
+
+Then in your defined editor,
+
+```
+{
+  "tags": [
+    {
+      "id": "long",
+      "name": "string"
+    }
+  ],
+  "id": "long",
+  "category": {
+    "id": "long",
+    "name": "string"
+  },
+  "status": "string",
+  "name": "string",
+  "photoUrls": [
+    "string"
+  ]
+}
+~                                                                                                                                                                 
+~                                                                                                                                                                 
+~                                                                                                                                                                 
+"/tmp/tmptmp" 18L, 228C
+```
+
+Save and exit, 
+
+```
+POSTING http://petstore.swagger.wordnik.com/api/pet.json, with request Body: 
+{
+  "tags": [
+    {
+      "id": 123,
+      "name": "test"
+    }
+  ],
+  "id": 123,
+  "category": {
+    "id": 123,
+    "name": "dog"
+  },
+  "name": "tonka",
+  "status": "sold",
+    "photoUrls": [
+    ""
+  ]
+}
+
+.... DONE.
+
+Response Body: 
+SUCCESS
+Response Code: 200
+ 
+>
+ 
+```
+
+###history
+
+```
+> history
+ 1  swagger http://petstore.swagger.wordnik.com/api/api-docs.json
+ 2  use /pet
+ 3  GET /pet.json/123 
+ 4  curl 
+ 5  describe POST /pet.json
+ 6  POST /pet.json
+ 7  history
+> !3
+GET /pet.json/123 
+GETTING http://petstore.swagger.wordnik.com/api/pet.json/123
+<etc> 
+
+```
+
 
 ### Commands:
 
@@ -101,14 +203,14 @@ Body Parameters:
     - METHOD URL
     - API_URL 
     
-Example, 
+### show, set
 
 ```
-> show response header
+> show response body
 
-response header = false
+response body = false
 
-> set response header true
+> set response body true
 
 response body = true
 
