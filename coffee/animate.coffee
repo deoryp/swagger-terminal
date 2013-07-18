@@ -1,33 +1,53 @@
 util = require 'util'
+{print} = require 'util'
+
+delay = (ms, func) -> setTimeout func, ms
+repeat = (ms, func) -> setInterval func, ms
 
 
-spawn = require('child_process').spawn
+
+
+
+{spawn} = require 'child_process'
 
 getTermSize = (cb) ->
-  spawn('resize').stdout.on('data', (data) ->
-    data = String(data)
-    lines = data.split('\n')
-    cols = Number(lines[0].match(/^COLUMNS=([0-9]+);$/)[1])
-    lines = Number(lines[1].match(/^LINES=([0-9]+);$/)[1])
+  spawner = spawn('tput', ['cols'])
+  spawner.stderr.on 'data', (data) ->
+    process.stderr.write data.toString()
+  spawner.stdout.on 'data', (data) ->
     if (cb)
-      cb(cols, lines)
-  )
+      cb(Number(data))
 
-printit = () ->
-  util.print("\r[")
-  for x in [1..(lines-2)]
-    if x <= i
-      util.print "-"
+foo = {}
+bar =
+  i: 0
+  cols: 100
+
+
+printBar = () ->
+  print '\r['
+  for x in [1..(bar.cols-2)]
+    if x <= bar.i
+     print '-'
     else
-      util.print " "
-  util.print("]")
-  i++
-  if i <= (lines-2)
-    setTimeout printit, 100
+      print " "
+  print ']'
+  bar.i++
+  if bar.i > (bar.cols-2)
+    print '\n'
+    clearInterval foo
+
+#getTermSize((cols, lines) -> console.log("here -- > " + cols + " " + lines + "\n"))
 
 
-getTermSize( (cols, lines) ->
-  util.print("wtf")
-  i = 1
-  setTimeout printit, 100
+getTermSize((cols) ->
+  console.log(cols)
+  bar.cols = cols
+  foo = repeat 10, printBar
 )
+
+
+
+
+
+
