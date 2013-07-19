@@ -3,13 +3,6 @@ http      = require 'http'
 
 String::trim = () -> @replace /^\s+|\s+$/g, ""
 
-completer = (line, callback) ->
-  line = line.trim()
-  completions = 'hello bye exit'.split(' ')
-  hits = completions.filter((c) -> return c.indexOf(line) == 0)
-  hit = completions if hits.length is 0
-  callback(null, [hits, line], line)
-
 class Terminal
   completer: (line, callback) ->
     line = line.trim()
