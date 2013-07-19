@@ -7,9 +7,9 @@ Documentation of intended usage. Future plans.
 ### swagger
 
 ```
-swagger http://petstore.swagger.wordnik.com/api/api-docs.json
+swagger http://petstore.swagger.wordnik.com/api/api-docs
 
-Downloading http://petstore.swagger.wordnik.com/api/api-docs.json.
+Downloading http://petstore.swagger.wordnik.com/api/api-docs.
 [-------------------------------------------------------] 100%
 
   /user
@@ -17,28 +17,44 @@ Downloading http://petstore.swagger.wordnik.com/api/api-docs.json.
   /store
 ```
 
-###use, using
+###use
 
 ```
+> use
+
+   /user
+   /pet
+   /store
+   
 > use /pet
 
-GET  /pet.json/{petId}       -  Find pet by ID
-POST /pet.json               -  Add a new pet to the store
-PUT  /pet.json               - Update an existing pet
-GET  /pet.json/findByStatus  - Finds Pets by status
+   /user
+ * /pet
+   /store
+   
+ GET  /pet/{petId}       -  Find pet by ID
+ POST /pet               -  Add a new pet to the store
+ PUT  /pet               - Update an existing pet
+ GET  /pet/findByStatus  - Finds Pets by status
 
-> using 
+> use
 
-  /user
-* /pet
-  /store
+   /user
+ * /pet
+   /store
+
+ GET  /pet/{petId}       -  Find pet by ID
+ POST /pet               -  Add a new pet to the store
+ PUT  /pet               - Update an existing pet
+ GET  /pet/findByStatus  - Finds Pets by status  
+  
 ```
 ###GET
 
 ```
-> GET /pet.json/123
+> GET /pet/123
 
-GETTING http://petstore.swagger.wordnik.com/api/pet.json/123
+GETTING http://petstore.swagger.wordnik.com/api/pet/123
 Response Body: 
 {
   "id": 123,
@@ -66,16 +82,16 @@ Response Code: 200
 ```
 > curl
 
-curl -X GET http://petstore.swagger.wordnik.com/api/pet.json/123
+curl -X GET http://petstore.swagger.wordnik.com/api/pet/123
 ```
 
 ###describe
 
 ```
-> describe POST /pet.json
+> describe POST /pet
 
 Description: Returns a pet based on ID
-Url: GET http://petstore.swagger.wordnik.com/api/pet.json
+Url: GET http://petstore.swagger.wordnik.com/api/pet
 Url Parameters:
 Body Parameters:
 {
@@ -102,7 +118,7 @@ Body Parameters:
 
 
 ```
-> POST /pet.json
+> POST /pet
 ```
 
 Then in your defined editor,
@@ -135,7 +151,7 @@ Then in your defined editor,
 Save and exit, 
 
 ```
-POSTING http://petstore.swagger.wordnik.com/api/pet.json, with request Body: 
+POSTING http://petstore.swagger.wordnik.com/api/pet, with request Body: 
 {
   "tags": [
     {
@@ -169,16 +185,16 @@ Response Code: 200
 
 ```
 > history
- 1  swagger http://petstore.swagger.wordnik.com/api/api-docs.json
+ 1  swagger http://petstore.swagger.wordnik.com/api/api-docs
  2  use /pet
- 3  GET /pet.json/123 
+ 3  GET /pet/123 
  4  curl 
- 5  describe POST /pet.json
- 6  POST /pet.json
+ 5  describe POST /pet
+ 6  POST /pet
  7  history
 > !3
-GET /pet.json/123 
-GETTING http://petstore.swagger.wordnik.com/api/pet.json/123
+GET /pet/123 
+GETTING http://petstore.swagger.wordnik.com/api/pet/123
 <etc> 
 
 ```
