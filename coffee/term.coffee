@@ -49,7 +49,21 @@ class SwaggerTerminal
     fetchSwagger options, () ->
       console.log 'done fetching swagger'
 
-    @rl = readline.createInterface
+ class SwaggerDoc
+  constructor: (json) ->
+    console.log('parsing json')
+    console.log(json)
+    @swaggerData = JSON.parse json
+    @apiVersion = @swaggerData.apiVersion
+    @basePath = url.parse(@swaggerData.basePath)
+    @apis = for api in @swaggerData.apis
+      api.path = api.path.jsonFormat()
+      full = url.parse(@swaggerData.basePath)
+      full.path += api.path
+      console.log("#{full.host}#{full.path}")
+      full
+
+   @rl = readline.createInterface
       input: process.stdin
       output: process.stdout
       completer: completer
