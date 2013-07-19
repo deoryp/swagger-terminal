@@ -13,10 +13,25 @@ completer = (line, callback) ->
 class Terminal
   completer: (line, callback) ->
     line = line.trim()
+    lineArgs = line.split(' ')
+    lineArgs[0] = lineArgs[0].trim()
     completions = (cmd.name for cmd in @terminal.commands)
-    hits = completions.filter((c) -> return c.indexOf(line) == 0)
+    hits = completions.filter((c) -> return c.indexOf(lineArgs[0]) == 0)
     hit = completions if hits.length is 0
-    callback(null, [hits, line], line)
+
+    #line = lineArgs[0] + ' ' + lineArgs[1]
+
+    #line = line.replace('  ', ' ')
+  
+    #console.log hits.length
+
+    if hits.length == 1
+      for cmd in @terminal.commands
+        if cmd.name == hits[0] and cmd.options
+          completions = (hits[0] + ' ' + opts for opts in cmd.options)
+          hits = completions.filter((c) ->
+            return c.indexOf(line) == 0)
+    callback(null, [hits, line])
 
   constructor: (@prompt, @commands, @callback) ->
     that = this
@@ -47,6 +62,13 @@ class Terminal
 
 class Command
   constructor: (@name, @action) ->
+    @options = []
+
+  clearOptions: (option) ->
+    @options = []
+
+  addOption: (option) ->
+    @options.push(option)
 
 exports.Command = Command
 exports.Terminal = Terminal

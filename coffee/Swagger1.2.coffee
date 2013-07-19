@@ -46,5 +46,4 @@ class SwaggerDoc
         url.parse(@basePath + api.path)
       return apis
 
-
 module.exports = SwaggerDoc
