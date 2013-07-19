@@ -3,7 +3,7 @@ url = require 'url'
 class SwaggerDoc
   constructor: (basePath, json, isChild) ->
 
-    console.log 'SwaggerDoc incoming json = ' + (typeof json)
+    #console.log 'SwaggerDoc incoming json = ' + (typeof json)
 
     if typeof json == 'object'
       @swaggerData = json
@@ -45,5 +45,10 @@ class SwaggerDoc
       apis = for api in @swaggerData.apis
         url.parse(@basePath + api.path)
       return apis
+  
+  childUrl: (api) ->
+    if @isChild
+      return null
+    return "#{@basePath}#{api.path}"
 
 module.exports = SwaggerDoc

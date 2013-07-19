@@ -27,7 +27,7 @@ class Terminal
 
     if hits.length == 1
       for cmd in @terminal.commands
-        if cmd.name == hits[0] and cmd.options
+        if cmd.name == hits[0] and cmd.options.length > 0
           completions = (hits[0] + ' ' + opts for opts in cmd.options)
           hits = completions.filter((c) ->
             return c.indexOf(line) == 0)
@@ -46,14 +46,16 @@ class Terminal
       line = line.trim()
       command = line.split(' ')
       commandMatched = false
+      skipPrompt = false
       for cmd in that.commands
         if cmd.name == command[0]
           cmd.action(this, command)
           commandMatched = true
+          skipPrompt = cmd.skipPrompt
           break
       if !commandMatched
         console.log("unknown command: #{command}.")
-      @prompt()
+      @prompt() if !skipPrompt
     @rl.on 'close', ->
       that.callback()
 
