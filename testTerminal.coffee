@@ -20,6 +20,11 @@ operationCommandAction = (that, command) ->
   swagger = this.swagger[command[1]]
   console.log swagger
 
+  url = that.terminal.swagger.apiUrl(swagger, command[1], command[0])
+
+  console.log 'going to ' + command[0] + ' with ' + url
+
+
 createCommandsFromChildSwagger = (that, swagger) ->
   removeOperations(that)
   operations = {}

@@ -23,7 +23,7 @@ class SwaggerDoc
   apis: ->
     return @swaggerParent.apis
 
-  describeApis: ->
+  describeApis:  ->
     aboutApis = ''
     aboutApis += @describeApisAsParent(@swaggerParent)
     aboutApis += '\n' if @inUse
@@ -64,5 +64,17 @@ class SwaggerDoc
             callback(that.inUse) if callback
     console.log('not found') if !foundPath
     callback() if !foundPath
+
+  apiUrl: (api, path, method) ->
+    console.log(@inUse)
+    
+    for operation in api.operations
+      if operation.method == method
+        for parameter in operation.parameters
+          if parameter.required
+            console.log parameter.name + ' is Required' 
+          #console.log parameter
+
+    return "#{@inUse.basePath}#{path}"
 
 module.exports = SwaggerDoc
